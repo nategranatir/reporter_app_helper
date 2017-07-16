@@ -1,4 +1,8 @@
 #fileDisplayArea {
-  height: 100px;
-  overflow: scroll;
+    height: 100px;
+    overflow: scroll;
+}
+
+#fileDisplayArea {
+    display: none;
 }

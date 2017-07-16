@@ -101,25 +101,49 @@ function export_environment_data() {
 function export_answer_data() {
     var load_data = $('#data');
 
-    var questions = _.uniq(JSPath.apply('.snapshots.responses.questionPrompt', data));
-    answer_data.push(questions);
+    var questions_question_types = {};
+    $.each(data, function (index_file, f) {
+        $.each(f['questions'], function (q) {
+            questions_question_types[q['prompt']] = q['questionType'];
+        });
+    });
+    var question_prompts = _.uniq(JSPath.apply('.snapshots.responses.questionPrompt', data));
+    answer_data.push(['date'].concat(question_prompts));
+
+    console.log(answer_data);
+
+    var snapshot_responses;
 
     $.each(data, function(index_file, f) {
         $.each(f['snapshots'], function( index_snapshot, s ) {
 
-            var snapshot_responses = _.map(questions, function (question) {
-                $.each(s['responses'], function ( index_response, r) {
-                    if(r['questionPrompt'] === question) { return r['uniqueIdentifier']; }
-                });
+            snapshot_responses = {};
+            $.each(s['responses'], function (index_response, r) {
+                snapshot_responses[r['questionPrompt']] = 'TODO';
             });
-            answer_data.push(snapshot_responses);
 
+            var snapshot_responses_ordered = _.map(question_prompts, function (question_prompt) {
+                return _.get(snapshot_responses, question_prompt)
+            });
 
+            snapshot_responses_ordered = s['date'].concat(snapshot_responses_ordered);
+
+            answer_data.push(snapshot_responses_ordered);
         });
     });
 
     load_data.html(array_of_arrays_to_csv(answer_data));
     //export_csv_data(array_of_arrays_to_csv(answer_data), 'answer_data.csv');
+}
+
+function process_response(r, questions_question_types) {
+    var question_type = questions_question_types[r['questionPrompt']]
+    switch(question_type) {
+    case 0:
+        break;
+    default:
+        return 'nate'
+    }
 }
 
 
