@@ -109,7 +109,7 @@ function export_answer_data() {
 
       var snapshot_responses = _.map(questions, function (question) {
         $.each(s['responses'], function ( index_response, r) {
-          if(r['questionPrompt'] == question) { return r['uniqueIdentifier']; }
+          if(r['questionPrompt'] === question) { return r['uniqueIdentifier']; }
         });
       });
       answer_data.push(snapshot_responses);
