@@ -110,7 +110,7 @@ function export_answer_data() {
     var question_prompts = _.uniq(JSPath.apply('.snapshots.responses.questionPrompt', data));
     answer_data.push(['date'].concat(question_prompts));
 
-    console.log(answer_data);
+    // console.log(answer_data);
 
     var snapshot_responses;
 
@@ -123,10 +123,14 @@ function export_answer_data() {
             });
 
             var snapshot_responses_ordered = _.map(question_prompts, function (question_prompt) {
-                return _.get(snapshot_responses, question_prompt)
+                return _.get(snapshot_responses, question_prompt, '')
             });
 
-            snapshot_responses_ordered = s['date'].concat(snapshot_responses_ordered);
+            // console.log(snapshot_responses_ordered);
+
+            snapshot_responses_ordered = [s['date']].concat(snapshot_responses_ordered);
+
+            console.log(snapshot_responses_ordered);
 
             answer_data.push(snapshot_responses_ordered);
         });
