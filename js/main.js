@@ -103,14 +103,13 @@ function export_answer_data() {
 
     var questions_question_types = {};
     $.each(data, function (index_file, f) {
-        $.each(f['questions'], function (q) {
-            questions_question_types[q['prompt']] = q['questionType'];
+        $.each(f['questions'], function (index_q, q) {
+            questions_question_types[q['prompt'].trim()] = q['questionType'];
         });
     });
     var question_prompts = _.uniq(JSPath.apply('.snapshots.responses.questionPrompt', data));
     answer_data.push(['date'].concat(question_prompts));
 
-    // console.log(answer_data);
 
     var snapshot_responses;
 
@@ -119,18 +118,14 @@ function export_answer_data() {
 
             snapshot_responses = {};
             $.each(s['responses'], function (index_response, r) {
-                snapshot_responses[r['questionPrompt']] = 'TODO';
+                snapshot_responses[r['questionPrompt']] = process_response(r, questions_question_types);
             });
 
             var snapshot_responses_ordered = _.map(question_prompts, function (question_prompt) {
                 return _.get(snapshot_responses, question_prompt, '')
             });
 
-            // console.log(snapshot_responses_ordered);
-
             snapshot_responses_ordered = [s['date']].concat(snapshot_responses_ordered);
-
-            console.log(snapshot_responses_ordered);
 
             answer_data.push(snapshot_responses_ordered);
         });
@@ -141,14 +136,24 @@ function export_answer_data() {
 }
 
 function process_response(r, questions_question_types) {
-    var question_type = questions_question_types[r['questionPrompt']]
+    var question_type = questions_question_types[r['questionPrompt'].trim()];
     switch(question_type) {
-    case 0:
-        break;
-    default:
-        return 'nate'
+        case 0:
+            break;
+        case 5:
+            return r['numericResponse'];
+        default:
+            return 'Not yet implemented'
     }
 }
+
+    // "0": "Tokens",
+    // "1": "Multi-Choice",
+    // "2": "Yes/No",
+    // "3": "Location",
+    // "4": "People",
+    // "5": "Number",
+    // "6": "Note"
 
 
 function array_of_arrays_to_csv(a) {
