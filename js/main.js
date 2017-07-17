@@ -144,19 +144,19 @@ function process_response(r, questions_question_types) {
             var tokens = _.map(r['tokens'], function (t) { return t['text']; });
             return tokens.join('|');
         case 1:     // Multi-Choice
-            return 'Note yet implemented';
+            return 'Not yet implemented';
         case 2:     // Yes/No
-            return 'Note yet implemented';
+            return r['answeredOptions'][0];
         case 3:     // Location
             var location_response = _.get(r, 'locationResponse');
             return _.get(location_response, 'text');
             // TODO: should also return r['locationResponse']['location']['latitude']/['longitude']
         case 4:     // People
-            return 'Note yet implemented';
+            return 'Not yet implemented';
         case 5:     // Number
             return r['numericResponse'];
         case 6:     // Note
-            return 'Note yet implemented';
+            return 'Not yet implemented';
         default:
             return 'Not yet implemented'
     }
