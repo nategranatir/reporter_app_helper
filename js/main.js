@@ -152,7 +152,8 @@ function process_response(r, questions_question_types) {
             return _.get(location_response, 'text');
             // TODO: should also return r['locationResponse']['location']['latitude']/['longitude']
         case 4:     // People
-            return 'Not yet implemented';
+            var tokens = _.map(r['tokens'], function (t) { return t['text']; });
+            return tokens.join('|');
         case 5:     // Number
             return r['numericResponse'];
         case 6:     // Note
