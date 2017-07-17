@@ -131,10 +131,8 @@ function export_answer_data() {
         });
     });
 
-    console.log(answer_data);
-
-    load_data.html(array_of_arrays_to_csv(answer_data));
-    //export_csv_data(array_of_arrays_to_csv(answer_data), 'answer_data.csv');
+    // load_data.html(array_of_arrays_to_csv(answer_data));
+    export_csv_data(array_of_arrays_to_csv(answer_data), 'answer_data.csv');
 }
 
 function process_response(r, questions_question_types) {
