@@ -131,6 +131,8 @@ function export_answer_data() {
         });
     });
 
+    console.log(answer_data);
+
     load_data.html(array_of_arrays_to_csv(answer_data));
     //export_csv_data(array_of_arrays_to_csv(answer_data), 'answer_data.csv');
 }
@@ -138,22 +140,27 @@ function export_answer_data() {
 function process_response(r, questions_question_types) {
     var question_type = questions_question_types[r['questionPrompt'].trim()];
     switch(question_type) {
-        case 0:
-            break;
-        case 5:
+        case 0:     // Tokens
+            var tokens = _.map(r['tokens'], function (t) { return t['text']; });
+            return tokens.join('|');
+        case 1:     // Multi-Choice
+            return 'Note yet implemented';
+        case 2:     // Yes/No
+            return 'Note yet implemented';
+        case 3:     // Location
+            var location_response = _.get(r, 'locationResponse');
+            return _.get(location_response, 'text');
+            // TODO: should also return r['locationResponse']['location']['latitude']/['longitude']
+        case 4:     // People
+            return 'Note yet implemented';
+        case 5:     // Number
             return r['numericResponse'];
+        case 6:     // Note
+            return 'Note yet implemented';
         default:
             return 'Not yet implemented'
     }
 }
-
-    // "0": "Tokens",
-    // "1": "Multi-Choice",
-    // "2": "Yes/No",
-    // "3": "Location",
-    // "4": "People",
-    // "5": "Number",
-    // "6": "Note"
 
 
 function array_of_arrays_to_csv(a) {
