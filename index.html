@@ -14,22 +14,22 @@
 
 <body>
     <div id="content">
-          <h1>Reporter App Data Exporter</h1>
-          <div>
+        <h1>Reporter App Data Exporter</h1>
+        <div>
             Select your json files:
             <input type="file" id="fileInput" multiple>
-          </div>
-          <pre id="fileDisplayArea"></pre>
-          <div id="fileImportResults">Loaded <span id="file_count_current">0</span> files out of <span id="file_count_total">0</span> total.</div>
-      <br />
-      <div id="fileImportProgressBar" class="progress">
-        <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">0%</div>
-      </div><br />
+        </div>
+        <pre id="fileDisplayArea"></pre>
+        <div id="fileImportResults">Loaded <span id="file_count_current">0</span> files out of <span id="file_count_total">0</span> total.</div>
+        <br />
+        <div id="fileImportProgressBar" class="progress">
+            <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="min-width: 2em;">0%</div>
+        </div><br />
 
-      <button onclick="export_environment_data()">Export Environment Data</button>
-      <button onclick="export_answer_data()">Export Answer Data</button>
+        <button onclick="export_environment_data()">Export Environment Data</button>
+        <button onclick="export_answer_data()">Export Answer Data</button>
 
-      <div id="data"></div>
+        <div id="data"></div>
     </div>
 </body>
 </html>
