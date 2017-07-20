@@ -98,7 +98,7 @@ function export_environment_data() {
 }
 
 
-function export_answer_data() {
+function export_answer_data(wide) {
 
     var questions_question_types = {};
     $.each(data, function (index_file, f) {
@@ -115,18 +115,23 @@ function export_answer_data() {
     $.each(data, function(index_file, f) {
         $.each(f['snapshots'], function( index_snapshot, s ) {
 
-            snapshot_responses = {};
-            $.each(s['responses'], function (index_response, r) {
-                snapshot_responses[r['questionPrompt']] = process_response(r, questions_question_types);
-            });
+            if(wide) {
+                snapshot_responses = {};
+                $.each(s['responses'], function (index_response, r) {
+                    snapshot_responses[r['questionPrompt']] = process_response(r, questions_question_types);
+                });
 
-            var snapshot_responses_ordered = _.map(question_prompts, function (question_prompt) {
-                return _.get(snapshot_responses, question_prompt, '')
-            });
+                var snapshot_responses_ordered = _.map(question_prompts, function (question_prompt) {
+                    return _.get(snapshot_responses, question_prompt, '')
+                });
 
-            snapshot_responses_ordered = [s['date']].concat(snapshot_responses_ordered);
+                snapshot_responses_ordered = [s['date']].concat(snapshot_responses_ordered);
 
-            answer_data.push(snapshot_responses_ordered);
+                answer_data.push(snapshot_responses_ordered);
+            }
+            else {
+                //TODO
+            }
         });
     });
 
