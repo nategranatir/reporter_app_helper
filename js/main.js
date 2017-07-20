@@ -99,7 +99,6 @@ function export_environment_data() {
 
 
 function export_answer_data() {
-    var load_data = $('#data');
 
     var questions_question_types = {};
     $.each(data, function (index_file, f) {
