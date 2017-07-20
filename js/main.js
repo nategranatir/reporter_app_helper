@@ -164,8 +164,10 @@ function process_response(r, questions_question_types) {
 
 function array_of_arrays_to_csv(a) {
     var rows = [];
+    var row;
     $.each(a, function(i, r) {
-        rows.push(r.join());
+        row = _.map(r, function (s) { return '"' + s.replace(/"/g, '""') + '"'; });
+        rows.push(row.join());
     });
     return rows.join('\n');
 }
